@@ -15,6 +15,7 @@ public class MyPanel extends JPanel {
 	private Color[][] colorArray = new Color[TOTAL_COLUMNS][TOTAL_ROWS];
 	private boolean[][] bombArray = new boolean [TOTAL_COLUMNS][TOTAL_ROWS];
 	private int flagCounter = 0;
+	private int numBombs = 10;
 	public int x = -1;
 	public int y = -1;
 	public int mouseDownGridX = 0;
@@ -134,6 +135,15 @@ public class MyPanel extends JPanel {
 		for(int x = 0; x < TOTAL_COLUMNS; x++){
 			for(int y = 0; y < TOTAL_ROWS; y++){
 				bombArray[x][y] = false;
+			}
+		}
+		//Randomly generates bombs in the mine field
+		while(numBombs != 0){
+			int i = new Random().nextInt(TOTAL_COLUMNS);
+			int j = new Random().nextInt(TOTAL_ROWS);
+			if (bombArray[i][j] = false){
+				bombArray[i][j] = true;
+				numBombs--;
 			}
 		}
 		
