@@ -7,7 +7,7 @@ import java.util.Random;
 
 import javax.swing.JFrame;
 
-public class MyMouseAdapter extends MouseAdapter {
+public class MyMouseAdapterProject extends MouseAdapter {
 	private Random generator = new Random();
 	public void mousePressed(MouseEvent e) {
 		switch (e.getButton()) {
@@ -20,7 +20,7 @@ public class MyMouseAdapter extends MouseAdapter {
 				}
 			}
 			JFrame myFrame = (JFrame) c;
-			MyPanel myPanel = (MyPanel) myFrame.getContentPane().getComponent(0);
+			MyPanelProject myPanel = (MyPanelProject) myFrame.getContentPane().getComponent(0);
 			Insets myInsets = myFrame.getInsets();
 			int x1 = myInsets.left;
 			int y1 = myInsets.top;
@@ -52,7 +52,7 @@ public class MyMouseAdapter extends MouseAdapter {
 				}
 			}
 			JFrame myFrame = (JFrame)c;
-			MyPanel myPanel = (MyPanel) myFrame.getContentPane().getComponent(0);  //Can also loop among components to find MyPanel
+			MyPanelProject myPanel = (MyPanelProject) myFrame.getContentPane().getComponent(0);  //Can also loop among components to find MyPanel
 			Insets myInsets = myFrame.getInsets();
 			int x1 = myInsets.left;
 			int y1 = myInsets.top;

@@ -5,7 +5,7 @@ import java.util.Random;
 
 import javax.swing.JPanel;
 
-public class MyPanel extends JPanel {
+public class MyPanelProject extends JPanel {
 	private static final long serialVersionUID = 3426940946811133635L;
 	private static final int GRID_X = 25;
 	private static final int GRID_Y = 25;
@@ -21,7 +21,7 @@ public class MyPanel extends JPanel {
 	public int mouseDownGridX = 0;
 	public int mouseDownGridY = 0;
 	
-	public MyPanel() {   //This is the constructor... this code runs first to initialize
+	public MyPanelProject() {   //This is the constructor... this code runs first to initialize
 		if (INNER_CELL_SIZE + (new Random()).nextInt(1) < 1) {	//Use of "random" to prevent unwanted Eclipse warning
 			throw new RuntimeException("INNER_CELL_SIZE must be positive!");
 		}
