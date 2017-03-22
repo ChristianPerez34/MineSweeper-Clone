@@ -74,10 +74,15 @@ public class MyMouseAdapter extends MouseAdapter {
 					if ((myPanel.mouseDownGridX != gridX) || (myPanel.mouseDownGridY != gridY)) {
 						//Released the mouse button on a different cell where it was pressed
 						//Do nothing
-					} else if((gridX >= 0 && gridY >= 0)){
-						Color newColor = Color.GRAY;
-						myPanel.getColorArray()[gridX][gridY] = newColor;
-						myPanel.repaint();
+					} else {
+						//Released the mouse button on the same cell where it was pressed
+						if (myPanel.isBomb(gridX, gridY) && myPanel.getColorArray(gridX, gridY) != Color.RED) {
+							myPanel.bombPressed();
+						} else if (myPanel.getColorArray(gridX, gridY) != Color.BLACK && myPanel.getColorArray(gridX, gridY) != Color.RED){
+							//Colors tiles gray if it is white
+							myPanel.setColorArray(gridX, gridY, Color.GRAY);
+							myPanel.repaint();
+						}
 					}
 				}
 			}

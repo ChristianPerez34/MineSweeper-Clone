@@ -1,8 +1,13 @@
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Random;
 
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 
 public class MyPanel extends JPanel {
@@ -11,16 +16,14 @@ public class MyPanel extends JPanel {
 	private static final int GRID_Y = 25;
 	private static final int INNER_CELL_SIZE = 29;
 	private static final int TOTAL_COLUMNS = 9;
-	private static final int TOTAL_ROWS = 9;
-	private Color[][] colorArray = new Color[TOTAL_COLUMNS][TOTAL_ROWS];
-	private boolean[][] bombArray = new boolean [TOTAL_COLUMNS][TOTAL_ROWS];
-	private int flagCounter = 0;
+	private static final int TOTAL_ROWS = 9;   //Last row has only one cell
 	private int numBombs = 10;
 	public int x = -1;
 	public int y = -1;
 	public int mouseDownGridX = 0;
 	public int mouseDownGridY = 0;
-	
+	public Color[][] colorArray = new Color[TOTAL_COLUMNS][TOTAL_ROWS];
+	public boolean[][] bombArray = new boolean[TOTAL_COLUMNS][TOTAL_ROWS];
 	public MyPanel() {   //This is the constructor... this code runs first to initialize
 		if (INNER_CELL_SIZE + (new Random()).nextInt(1) < 1) {	//Use of "random" to prevent unwanted Eclipse warning
 			throw new RuntimeException("INNER_CELL_SIZE must be positive!");
@@ -58,14 +61,11 @@ public class MyPanel extends JPanel {
 		for (int x = 0; x <= TOTAL_COLUMNS; x++) {
 			g.drawLine(x1 + GRID_X + (x * (INNER_CELL_SIZE + 1)), y1 + GRID_Y, x1 + GRID_X + (x * (INNER_CELL_SIZE + 1)), y1 + GRID_Y + ((INNER_CELL_SIZE + 1) * (TOTAL_ROWS)));
 		}
-
-		
-
 		//Paint cell colors
 		for (int x = 0; x < TOTAL_COLUMNS; x++) {
 			for (int y = 0; y < TOTAL_ROWS; y++) {
 				if ((x == 0) || (y != TOTAL_ROWS)) {
-					Color c = getColorArray()[x][y];
+					Color c = colorArray[x][y];
 					g.setColor(c);
 					g.fillRect(x1 + GRID_X + (x * (INNER_CELL_SIZE + 1)) + 1, y1 + GRID_Y + (y * (INNER_CELL_SIZE + 1)) + 1, INNER_CELL_SIZE, INNER_CELL_SIZE);
 				}
@@ -89,7 +89,7 @@ public class MyPanel extends JPanel {
 		}
 		x = x / (INNER_CELL_SIZE + 1);
 		y = y / (INNER_CELL_SIZE + 1);
-		if (x == 0 && y == TOTAL_ROWS - 1) {    //The lower left extra cell
+		if (x == 0 && y == TOTAL_ROWS) {    //The lower left extra cell
 			return x;
 		}
 		if (x < 0 || x > TOTAL_COLUMNS - 1 || y < 0 || y > TOTAL_ROWS - 1) {   //Outside the rest of the grid
@@ -114,7 +114,7 @@ public class MyPanel extends JPanel {
 		}
 		x = x / (INNER_CELL_SIZE + 1);
 		y = y / (INNER_CELL_SIZE + 1);
-		if (x == 0 && y == TOTAL_ROWS - 1) {    //The lower left extra cell
+		if (x == 0 && y == TOTAL_ROWS) {    //The lower left extra cell
 			return y;
 		}
 		if (x < 0 || x > TOTAL_COLUMNS - 1 || y < 0 || y > TOTAL_ROWS - 1) {   //Outside the rest of the grid
@@ -122,49 +122,55 @@ public class MyPanel extends JPanel {
 		}
 		return y;
 	}
-	//Sets up the main game.
+	
+	
+	
+	public static int getTotalColumns() {
+		return TOTAL_COLUMNS;
+	}
+	public static int getTotalRows() {
+		return TOTAL_ROWS;
+	}
 	public void initializeBoard(){
-		flagCounter = 0; //set amount of flags to 0
-		//Creates 9x9 mine field
 		for(int x = 0; x < TOTAL_COLUMNS; x++){
 			for(int y = 0; y < TOTAL_ROWS; y++){
 				setColorArray(x, y, Color.WHITE);
 			}
 		}
-		//No bombs have been pressed
 		for(int x = 0; x < TOTAL_COLUMNS; x++){
 			for(int y = 0; y < TOTAL_ROWS; y++){
 				bombArray[x][y] = false;
 			}
 		}
-		//Randomly generates bombs in the mine field
-		while(numBombs != 0){
+		for(int x = 0; x < numBombs;){
 			int i = new Random().nextInt(TOTAL_COLUMNS);
 			int j = new Random().nextInt(TOTAL_ROWS);
-			if (bombArray[i][j] = false){
+			if(bombArray[i][j] == false){
 				bombArray[i][j] = true;
-				numBombs--;
+				x++;
 			}
 		}
+	}
+	public void setColorArray(int x, int y, Color c) {
+		this.colorArray[x][y] = c;
 		
-		
 	}
-	private void setColorArray(int x, int y, Color white) {
-		this.colorArray[x][y] = white;
+	public Color getColorArray(int x, int y){
+		return colorArray[x][y];
 	}
-	public Color[][] getColorArray() {
-		return colorArray;
+	public boolean isBomb(int x, int y){
+		return bombArray[x][y];
 	}
-	public boolean[][] getBombArray() {
-		return bombArray;
-	}
-	public void setBombArray(boolean[][] bombArray) {
-		this.bombArray = bombArray;
-	}
-	public int getFlagCounter() {
-		return flagCounter;
-	}
-	public void setFlagCounter(int flagCounter) {
-		this.flagCounter = flagCounter;
+	public void bombPressed(){
+		for(int i = 0; i < TOTAL_COLUMNS; i++){
+			for(int j = 0; j < TOTAL_ROWS; j++){
+				if(isBomb(i,j)){
+					setColorArray(i,j, Color.BLACK);
+				}
+				else{
+					setColorArray(i,j,Color.GRAY);
+				}
+			}
+		}
 	}
 }
