@@ -74,33 +74,27 @@ public class MyMouseAdapter extends MouseAdapter {
 					if ((myPanel.mouseDownGridX != gridX) || (myPanel.mouseDownGridY != gridY)) {
 						//Released the mouse button on a different cell where it was pressed
 						//Do nothing
-					} else {
-						//Released the mouse button on the same cell where it was pressed
-						if ((gridX == 0) || (gridY == 0)) {
-							//On the left column and on the top row... do nothing
-						} else {
-							//On the grid other than on the left column and on the top row:
-							Color newColor = null;
-							switch (generator.nextInt(5)) {
-							case 0:
-								newColor = Color.YELLOW;
-								break;
-							case 1:
-								newColor = Color.MAGENTA;
-								break;
-							case 2:
-								newColor = Color.BLACK;
-								break;
-							case 3:
-								newColor = new Color(0x964B00);   //Brown (from http://simple.wikipedia.org/wiki/List_of_colors)
-								break;
-							case 4:
-								newColor = new Color(0xB57EDC);   //Lavender (from http://simple.wikipedia.org/wiki/List_of_colors)
-								break;
-							}
-							myPanel.getColorArray()[myPanel.mouseDownGridX][myPanel.mouseDownGridY] = newColor;
-							myPanel.repaint();
+					} else if((gridX >= 0 && gridY >= 0)){
+						Color newColor = null;
+						switch (generator.nextInt(5)) {
+						case 0:
+							newColor = Color.YELLOW;
+							break;
+						case 1:
+							newColor = Color.MAGENTA;
+							break;
+						case 2:
+							newColor = Color.BLACK;
+							break;
+						case 3:
+							newColor = new Color(0x964B00);   //Brown (from http://simple.wikipedia.org/wiki/List_of_colors)
+							break;
+						case 4:
+							newColor = new Color(0xB57EDC);   //Lavender (from http://simple.wikipedia.org/wiki/List_of_colors)
+							break;
 						}
+						myPanel.getColorArray()[gridX][gridY] = newColor;
+						myPanel.repaint();
 					}
 				}
 			}

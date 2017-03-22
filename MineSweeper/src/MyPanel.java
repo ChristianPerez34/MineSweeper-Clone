@@ -91,7 +91,7 @@ public class MyPanel extends JPanel {
 		if (x == 0 && y == TOTAL_ROWS - 1) {    //The lower left extra cell
 			return x;
 		}
-		if (x < 0 || x > TOTAL_COLUMNS - 1 || y < 0 || y > TOTAL_ROWS - 2) {   //Outside the rest of the grid
+		if (x < 0 || x > TOTAL_COLUMNS - 1 || y < 0 || y > TOTAL_ROWS - 1) {   //Outside the rest of the grid
 			return -1;
 		}
 		return x;
@@ -116,7 +116,7 @@ public class MyPanel extends JPanel {
 		if (x == 0 && y == TOTAL_ROWS - 1) {    //The lower left extra cell
 			return y;
 		}
-		if (x < 0 || x > TOTAL_COLUMNS - 1 || y < 0 || y > TOTAL_ROWS - 2) {   //Outside the rest of the grid
+		if (x < 0 || x > TOTAL_COLUMNS - 1 || y < 0 || y > TOTAL_ROWS - 1) {   //Outside the rest of the grid
 			return -1;
 		}
 		return y;
@@ -127,7 +127,7 @@ public class MyPanel extends JPanel {
 		//Creates 9x9 mine field
 		for(int x = 0; x < TOTAL_COLUMNS; x++){
 			for(int y = 0; y < TOTAL_ROWS; y++){
-				colorArray[x][y] = Color.WHITE;
+				setColorArray(x, y, Color.WHITE);
 			}
 		}
 		//No bombs have been pressed
@@ -139,11 +139,11 @@ public class MyPanel extends JPanel {
 		
 		
 	}
+	private void setColorArray(int x, int y, Color white) {
+		this.colorArray[x][y] = white;
+	}
 	public Color[][] getColorArray() {
 		return colorArray;
-	}
-	public void setColorArray(Color[][] colorArray) {
-		this.colorArray = colorArray;
 	}
 	public boolean[][] getBombArray() {
 		return bombArray;
