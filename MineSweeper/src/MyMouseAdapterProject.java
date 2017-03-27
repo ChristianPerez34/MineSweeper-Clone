@@ -8,7 +8,10 @@ import java.util.Random;
 import javax.swing.JFrame;
 
 public class MyMouseAdapterProject extends MouseAdapter {
-	private Random generator = new Random();
+	
+	
+
+	
 	public void mousePressed(MouseEvent e) {
 		switch (e.getButton()) {
 		case 1:		//Left mouse button
@@ -74,14 +77,14 @@ public class MyMouseAdapterProject extends MouseAdapter {
 					if ((myPanel.mouseDownGridX != gridX) || (myPanel.mouseDownGridY != gridY)) {
 						//Released the mouse button on a different cell where it was pressed
 						//Do nothing
-					} else if((gridX >= 0 && gridY >= 0)){
-						Color newColor = Color.GRAY;
-						myPanel.getColorArray()[gridX][gridY] = newColor;
-						myPanel.repaint();
+					} if (myPanel.isMine(gridX, gridY) && myPanel.getColorArray(gridX, gridY) != Color.RED){
+						myPanel.minePressed();
 					}
-				}
-			}
+			}	
+	}
 			myPanel.repaint();
+			
+			
 			break;
 		case 3:		//Right mouse button
 			//Do nothing
@@ -91,4 +94,5 @@ public class MyMouseAdapterProject extends MouseAdapter {
 			break;
 		}
 	}
+	
 }
