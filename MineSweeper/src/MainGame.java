@@ -1,5 +1,12 @@
 import javax.swing.JFrame;
 
+/*
+ *                     
+ * @author Christian Perez Villanueva   
+ * @author Dylan Hernandez   
+ *                     
+ */
+
 public class MainGame {
 	public static void main(String[] args) {
 		JFrame myFrame = new JFrame("Minesweeper Game");
