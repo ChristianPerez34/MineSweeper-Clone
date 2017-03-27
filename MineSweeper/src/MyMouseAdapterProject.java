@@ -79,6 +79,9 @@ public class MyMouseAdapterProject extends MouseAdapter {
 						//Do nothing
 					} if (myPanel.isMine(gridX, gridY) && myPanel.getColorArray(gridX, gridY) != Color.RED){
 						myPanel.minePressed();
+					} else if (myPanel.getColorArray(gridX, gridY) != Color.RED && myPanel.getColorArray(gridX, gridY) != Color.BLACK ){
+						
+						
 					}
 			}	
 	}
